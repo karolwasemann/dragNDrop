@@ -1,5 +1,5 @@
 // Import stylesheets
-import "./style.css";
+// import "./style.css";
 
 const draggables = document.querySelectorAll(".draggable");
 const containers = document.querySelectorAll(".container");
@@ -17,11 +17,11 @@ draggables.forEach((draggable) => {
 containers.forEach((container) => {
   container.addEventListener("dragover", (e) => {
     e.preventDefault();
+    const afterElement = getAfterElement(container, e.clientY);
+    console.log(afterElement);
     const dragging = document.querySelector(".dragging");
 
-    const afterElement = getAfterElement(container, e.clientY);
-
-    if (afterElement === null) {
+    if (afterElement == null) {
       container.appendChild(dragging);
     } else {
       container.insertBefore(dragging, afterElement);
@@ -38,7 +38,6 @@ const getAfterElement = (container, y) => {
     (closest, child) => {
       const box = child.getBoundingClientRect();
       const offset = y - box.top - box.height / 2;
-      console.log(offset);
       if (offset < 0 && offset > closest.offset) {
         return { offset: offset, element: child };
       } else {
